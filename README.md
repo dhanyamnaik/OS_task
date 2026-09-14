@@ -161,25 +161,6 @@ Run:
 bash
 java task1.MatrixMultiplication
 
-
-> Make sure the package name and folder name match. For example, if the package is `task1`, the files should be inside a folder named `task1`.
-
-## Important Note
-
-For the Matrix Multiplication program, the package declaration should be consistent in both files.
-
-Use:
-
-java
-package task1;
-not:
-
-java
-package taask1;
-
-
-This avoids package-related compilation errors.
-
 # Learning Outcomes
 
 By completing these programs, the following concepts are demonstrated:
