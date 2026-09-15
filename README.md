@@ -1,77 +1,67 @@
 OS_Task1
- Multithreading Assignment
- Overview
+Multithreading Assignment
+Overview
 
 This project demonstrates two important multithreading problems using Java:
 
 Producer-Consumer Problem using Java Threads
 Matrix Multiplication using Java Threads with Animation
 
-The project demonstrates concepts such as thread creation, synchronization, shared resources, wait(), notify(), concurrent execution, matrix multiplication, and graphical visualization using Java Swing.
+The project demonstrates thread creation, synchronization, shared resources, wait(), notify(), concurrent execution, matrix multiplication, and Java Swing visualization.
 
- Files in this Repository
-File	                   Description
-ProducerConsumer.java	   Main class for Producer-Consumer
-SharedBuffer.java	   Shared buffer used by Producer and Consumer
-MatrixMultiplication.java  Main class for matrix multiplication
-MatrixThread.java	  Thread implementation for matrix multiplication
-README.md	          Project documentation
+Files in this Repository
+File	Description
+ProducerConsumer.java	Main class for Producer-Consumer
+SharedBuffer.java	Shared buffer used by Producer and Consumer
+Producer.java	Producer thread implementation
+Consumer.java	Consumer thread implementation
+MatrixMultiplication.java	Main class for matrix multiplication
+MatrixThread.java	Thread implementation for matrix multiplication
+matrix-multiplication.gif	Animation of matrix multiplication
+README.md	Project documentation
+1. Producer-Consumer Problem
+Description
 
- Producer-Consumer Problem
- Description
+The Producer-Consumer problem demonstrates communication between two threads using a shared resource.
 
-The Producer-Consumer Problem is implemented using Java Threads and a shared buffer.
-
-The Producer generates numbers and stores them in the shared buffer, while the Consumer removes and consumes the values from the buffer.
-
-Since both threads access the same shared resource, synchronization is used to ensure correct execution.
-
- How It Works
-
-The SharedBuffer class stores the value produced by the Producer.
-
-The produce() method is synchronized so that only one thread can access the shared buffer at a time.
-
-If the buffer already contains an item, the Producer waits using wait().
-
-After producing an item, the Producer sets the buffer as available and uses notify() to wake the Consumer.
-
-Similarly, the Consumer waits when there is no item available.
-
-After consuming the item, the Consumer makes the buffer available again and notifies the Producer.
-
-This allows the Producer and Consumer to communicate safely.
-
-🔹 Concepts Used
+The Producer generates values from 1 to 5.
+The Consumer consumes the produced values.
+A shared buffer is used to exchange data.
+Synchronization is used to avoid conflicts between the threads.
+Working
+The Producer checks whether the buffer is available.
+If the buffer already contains an item, the Producer waits.
+The Producer produces an item and stores it in the buffer.
+The Consumer waits if no item is available.
+The Consumer consumes the item.
+notify() is used to wake up the waiting thread.
+Concepts Used
 Java Threads
-Producer Thread
-Consumer Thread
+Producer-Consumer Problem
 Shared Resource
 Synchronization
 synchronized
 wait()
 notify()
-Thread Communication
+Entry Point
+public class ProducerConsumer {
+    public static void main(String[] args) {
+        SharedBuffer buffer = new SharedBuffer();
 
-▶️ How to Run
-Using Eclipse
-Create a Java project.
-Create the package task1.
-Add all Producer-Consumer Java files.
-Open ProducerConsumer.java.
-Run it as a Java Application.
-Using Terminal
+        Producer p = new Producer(buffer);
+        Consumer c = new Consumer(buffer);
 
-Compile:
+        p.start();
+        c.start();
+    }
+}
+How to Run
+
+If the package name is task1:
 
 javac task1/*.java
-
-Run:
-
 java task1.ProducerConsumer
-
-🖥️ Sample Output
-
+Sample Output
 Produced: 1
 Consumed: 1
 Produced: 2
@@ -83,144 +73,65 @@ Consumed: 4
 Produced: 5
 Consumed: 5
 
-The exact order may vary because the Producer and Consumer execute concurrently.
+The exact order may vary because the threads run concurrently.
 
-2️⃣ Matrix Multiplication Using Threads
-📖 Description
+2. Matrix Multiplication Using Threads
+Description
 
-The second program implements matrix multiplication using Java Threads.
+This program performs multiplication of two 100 x 100 matrices using Java Threads.
 
-Two matrices of size 100 × 100 are generated and multiplied to produce a third matrix.
-
-Matrix A → 100 × 100
-Matrix B → 100 × 100
-Matrix C → 100 × 100
-
-Every element of the result matrix C is calculated by a separate thread.
-
-Since the result matrix contains 100 × 100 = 10,000 elements, the program creates 10,000 threads.
-
-📌 Problem Statement
-
-Implement Matrix multiplication of 2 matrices using Threads. Minimum 100 rows & 100 columns. Every multiplication operation must be on a thread.
-
-⚙️ How It Works
-
-First, two 100 × 100 matrices are generated with random values.
-
-For every position (row, column) of Matrix C, a new MatrixThread is created.
-
-Each thread calculates one element of Matrix C using the formula:
-
-C[i][j] = A[i][0] × B[0][j] + A[i][1] × B[1][j] + ... + A[i][99] × B[99][j]
+Every multiplication result C[i][j] is calculated by a separate thread.
 
 Therefore:
 
-One Thread → One Result Matrix Element
+Matrix A = 100 x 100
+Matrix B = 100 x 100
+Result Matrix C = 100 x 100
+Total threads used = 10,000
+Problem Statement
 
-For a 100 × 100 matrix:
+Implement matrix multiplication of two matrices using Threads.
 
-100 × 100 = 10,000 Threads
+Minimum 100 rows and 100 columns
+Every multiplication operation must be performed using a thread
+Display the matrix multiplication process using a graphical interface
+Working
+Two 100 x 100 matrices are created.
+Random values are assigned to both matrices.
+A separate MatrixThread is created for every result cell.
+Each thread calculates one element of the result matrix.
+All threads are started.
+join() is used to wait until all threads are completed.
+Java Swing is used to display the matrix multiplication process.
+Matrix Multiplication Formula
+C[i][j] = A[i][0] × B[0][j]
+        + A[i][1] × B[1][j]
+        + ...
+        + A[i][99] × B[99][j]
+Animation
 
-The main program uses join() to wait until all threads complete their calculations.
+The program provides a graphical visualization of the matrix multiplication process.
 
-🧵 Thread Execution
+Matrix A is displayed on the left.
+Matrix B is displayed in the middle.
+Matrix C is displayed on the right.
+The current row and column are highlighted.
+Result values are updated as the threads complete their calculations.
 
-The MatrixThread class extends the Java Thread class.
 
-Each thread receives:
+How to Run
 
-Matrix A
-Matrix B
-Matrix C
-Row number
-Column number
-GUI panel
-
-The thread calculates its assigned element of Matrix C independently.
-
-After all threads complete, the program displays:
-
-Matrix Multiplication Completed!
-
-🎨 GUI Visualization
-
-The program uses Java Swing to display the matrix multiplication process visually.
-
-The GUI displays:
-
-Matrix A
-Matrix B
-Matrix C (building live)
-
-A red horizontal marker shows the current row being processed in Matrix A.
-
-A red vertical marker shows the current column being processed in Matrix B.
-
-Matrix C is updated as the threads complete their calculations.
-
-The GUI also displays the current processing row and column.
-
-Example:
-
-Processing row: 25 column: 40
-
-🎬 Matrix Multiplication Animation
-
-The program provides a live animation of the matrix multiplication process.
-
-The animation shows Matrix A, Matrix B, and Matrix C while the threads are executing.
-
-The red row and column indicate the current position being processed, while Matrix C is gradually built during execution.
-
-The GIF above is the recorded output of the Java Swing matrix multiplication program.
-
-🖥️ Sample Console Output
-
-Matrix A: 100 x 100
-Matrix B: 100 x 100
-Threads used: 10000
-Matrix Multiplication Completed!
-
-First 5 x 5 elements of Result Matrix:
-
-The values of the result matrix are randomly generated, so the exact values will be different each time the program is executed.
-
-🔹 Concepts Used
-Java Threads
-Multithreading
-Matrix Multiplication
-Thread Creation
-Thread Execution
-Thread.start()
-Thread.join()
-Thread.sleep()
-Java Swing
-JFrame
-JPanel
-AWT Graphics
-SwingUtilities.invokeLater()
-GUI Visualization
-▶️ How to Run Matrix Multiplication
-Using Eclipse
-Create a Java project.
-Create the package task1.
-Add MatrixMultiplication.java and MatrixThread.java.
-Open MatrixMultiplication.java.
-Run it as a Java Application.
-The matrix multiplication window will appear.
-The animation will show the execution process.
-Using Terminal
-
-Compile:
+Make sure all Java files use the same package name, for example task1.
 
 javac task1/MatrixMultiplication.java task1/MatrixThread.java
-
-Run:
-
 java task1.MatrixMultiplication
-
-🛠️ Technologies Used
+Sample Output
+Matrix A: 100 x 100
+Matrix B: 100 x 100
+Result Matrix C: 100 x 100
+Threads used: 10000
+Matrix multiplication completed.
+Technologies Used
 Java
 Java Threads
 Multithreading
@@ -228,28 +139,22 @@ Java Swing
 AWT Graphics
 Synchronization
 Random Number Generation
-📋 Requirements
-Java JDK 8 or above
-Eclipse / IntelliJ IDEA / VS Code / NetBeans
-Command Prompt or Terminal
+Requirements
+JDK 8 or above
+Eclipse, IntelliJ IDEA, VS Code, NetBeans, or Command Prompt
+Git and GitHub
+Learning Outcomes
 
-🎯 Learning Outcomes
+Through this assignment, we learned:
 
-Through this assignment, the following concepts are demonstrated:
-Creation and execution of Java Threads.
-Understanding multithreading.
-Synchronization of shared resources.
-Using wait() and notify().
-Implementing the Producer-Consumer problem.
-Understanding thread communication.
-Performing matrix multiplication using multiple threads.
-Creating one thread for each result matrix element.
-Using Thread.start() and Thread.join().
-Using Java Swing for graphical visualization.
-Visualizing multithreaded execution using animation.
+How to create and use Java Threads
+How multiple threads execute concurrently
+How synchronization works
+How wait() and notify() are used
+How to solve the Producer-Consumer problem
+How to perform matrix multiplication using multiple threads
+How to use Java Swing for graphical visualization
+How to manage multiple threads using join()
+Conclusion
 
-📌 Conclusion
-This project demonstrates multithreading through two different applications.
-The Producer-Consumer Problem demonstrates communication between threads using a shared buffer, synchronization, wait(), and notify().
-The Matrix Multiplication Problem demonstrates how a 100 × 100 matrix multiplication can be divided into 10,000 independent tasks, with one thread calculating each result element.
-The Java Swing animation provides a visual representation of the matrix multiplication process by showing the current row, column, and result matrix while the threads are executing.
+This project demonstrates the practical use of multithreading in Java through the Producer-Consumer problem and matrix multiplication. It shows how threads can be used for concurrent execution, synchronization, and improving the understanding of parallel processing.
