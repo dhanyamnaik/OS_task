@@ -20,6 +20,7 @@ MatrixMultiplication.java	Main class for matrix multiplication
 MatrixThread.java	Thread implementation for matrix multiplication
 matrix-multiplication.gif	Animation of matrix multiplication
 README.md	Project documentation
+
 1️⃣ Producer-Consumer Problem
 📖 Description
 
@@ -30,22 +31,16 @@ The Producer generates numbers and stores them in the shared buffer, while the C
 Since both threads access the same shared resource, synchronization is used to ensure correct execution.
 
 ⚙️ How It Works
-
 The SharedBuffer class stores the value produced by the Producer.
-
 The produce() method is synchronized so that only one thread can access the shared buffer at a time.
-
 If the buffer already contains an item, the Producer waits using wait().
-
 After producing an item, the Producer sets the buffer as available and uses notify() to wake the Consumer.
-
-Similarly, the Consumer waits when there is no item available.
-
+Similarly, the Consumer waits when there is no item available
 After consuming the item, the Consumer makes the buffer available again and notifies the Producer.
-
 This allows the Producer and Consumer to communicate safely.
 
 🔹 Concepts Used
+
 Java Threads
 Producer Thread
 Consumer Thread
@@ -55,6 +50,7 @@ synchronized
 wait()
 notify()
 Thread Communication
+
 ▶️ How to Run
 Using Eclipse
 Create a Java project.
@@ -140,15 +136,12 @@ Column number
 GUI panel
 
 The thread calculates its assigned element of Matrix C independently.
-
 After all threads complete, the program displays:
-
 Matrix Multiplication Completed!
 
 🎨 GUI Visualization
 
 The program uses Java Swing to display the matrix multiplication process visually.
-
 The GUI displays:
 
 Matrix A
@@ -156,26 +149,18 @@ Matrix B
 Matrix C (building live)
 
 A red horizontal marker shows the current row being processed in Matrix A.
-
 A red vertical marker shows the current column being processed in Matrix B.
-
 Matrix C is updated as the threads complete their calculations.
-
 The GUI also displays the current processing row and column.
-
 Example:
 
 Processing row: 25 column: 40
 
 🎬 Matrix Multiplication Animation
-
 The program provides a live animation of the matrix multiplication process.
-
 The animation shows Matrix A, Matrix B, and Matrix C while the threads are executing.
-
 The red row and column indicate the current position being processed, while Matrix C is gradually built during execution.
 
-The GIF above is the recorded output of the Java Swing matrix multiplication program.
 
 🖥️ Sample Console Output
 
@@ -203,6 +188,7 @@ JPanel
 AWT Graphics
 SwingUtilities.invokeLater()
 GUI Visualization
+
 ▶️ How to Run Matrix Multiplication
 Using Eclipse
 Create a Java project.
@@ -223,6 +209,7 @@ Run:
 java task1.MatrixMultiplication
 
 🛠️ Technologies Used
+
 Java
 Java Threads
 Multithreading
@@ -230,10 +217,12 @@ Java Swing
 AWT Graphics
 Synchronization
 Random Number Generation
+
 📋 Requirements
 Java JDK 8 or above
 Eclipse / IntelliJ IDEA / VS Code / NetBeans
 Command Prompt or Terminal
+
 🎯 Learning Outcomes
 
 Through this assignment, the following concepts are demonstrated:
@@ -249,13 +238,11 @@ Creating one thread for each result matrix element.
 Using Thread.start() and Thread.join().
 Using Java Swing for graphical visualization.
 Visualizing multithreaded execution using animation.
+
 📌 Conclusion
 
 This project demonstrates multithreading through two different applications.
-
 The Producer-Consumer Problem demonstrates communication between threads using a shared buffer, synchronization, wait(), and notify().
-
 The Matrix Multiplication Problem demonstrates how a 100 × 100 matrix multiplication can be divided into 10,000 independent tasks, with one thread calculating each result element.
-
 The Java Swing animation provides a visual representation of the matrix multiplication process by showing the current row, column, and result matrix while the threads are executing.
 
